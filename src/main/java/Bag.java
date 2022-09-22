@@ -5,6 +5,8 @@
  * 1. Introduction to Java helpful.
  */
 
+import java.util.Arrays;
+
 public abstract class Bag {
     /*
      * TODO: Create the following private instance variables
@@ -13,7 +15,10 @@ public abstract class Bag {
      *       - an int named capacity
      *       - an array of Strings named contents
      */
-
+    private String color;
+    private int numberOfContents;
+    private int capacity;
+    private String[] contents;
 
 
 
@@ -26,6 +31,12 @@ public abstract class Bag {
      * be empty (e.g. numberOfContents is 0 and an empty String array for
      * its contents.)
      */
+    Bag(String color, int capacity){
+        this.color = color;
+        this.capacity = capacity;
+        this.numberOfContents = 0;
+        this.contents = new String[0];
+    }
 
 
 
@@ -38,6 +49,17 @@ public abstract class Bag {
      *           - getCapacity
      */
 
+    public String getColor(){
+        return this.color;
+    }
+
+    public int getNumberOfContents(){
+        return this.numberOfContents;
+    }
+
+    public int getCapacity(){
+        return this.capacity;
+    }
 
 
 
@@ -46,10 +68,9 @@ public abstract class Bag {
      *       color of this bag to the given color.
      */
 
-
-
-
-
+    public void setColor(String color) {
+        this.color = color;
+    }
     /*
      * TODO: Create a method called addItem that takes in a String
      *       representing an item in the Bag.
@@ -61,7 +82,18 @@ public abstract class Bag {
      *       and false otherwise.
      */
 
-
+    public boolean addItem(String item){
+        if (numberOfContents < this.capacity){
+            numberOfContents += 1;
+            String[] arr = new String[contents.length + 1];
+            for(int i = 0; i < arr.length; i++){
+                arr[i] = contents[i];
+            }
+            arr[arr.length - 1] = item;
+            return true;
+        }
+        return false;
+    }
 
 
 
@@ -75,7 +107,18 @@ public abstract class Bag {
      *
      * @return
      */
-
+    public String popItem(){
+        if (numberOfContents > 0){
+            String item = contents[contents.length - 1];
+            String[] arr = new String[contents.length - 1];
+            for(int i = 0; i < arr.length; i += 1){
+                arr[i] = contents[i];
+            }
+            contents = arr;
+            return item;
+        }
+        return null;
+    }
 
 
 
@@ -87,7 +130,7 @@ public abstract class Bag {
      */
     public void increaseCapacity(int n) {
         // TODO: Implement this method.
-
+        this.capacity += n;
     }
 
     /**
